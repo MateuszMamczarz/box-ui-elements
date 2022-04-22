@@ -29,6 +29,7 @@ import type { ActivitySidebarProps } from './ActivitySidebar';
 import type { MetadataSidebarProps } from './MetadataSidebar';
 import type { VersionsSidebarProps } from './versions';
 import type { User, BoxItem } from '../../common/types/core';
+import type { TargetingApi } from '../../features/targeting/types';
 
 type Props = {
     activitySidebarProps: ActivitySidebarProps,
@@ -49,6 +50,9 @@ type Props = {
     onAnnotationSelect?: Function,
     onVersionChange?: Function,
     onVersionHistoryClick?: Function,
+    previewExperiences?: {
+        [name: string]: TargetingApi,
+    },
     versionsSidebarProps: VersionsSidebarProps,
 };
 
@@ -147,6 +151,7 @@ class SidebarPanels extends React.Component<Props, State> {
             onAnnotationSelect,
             onVersionChange,
             onVersionHistoryClick,
+            previewExperiences,
             versionsSidebarProps,
         }: Props = this.props;
 
@@ -203,6 +208,7 @@ class SidebarPanels extends React.Component<Props, State> {
                                     startMarkName={MARK_NAME_JS_LOADING_ACTIVITY}
                                     activeFeedEntryId={match.params.activeFeedEntryId}
                                     activeFeedEntryType={match.params.activeFeedEntryId && activeFeedEntryType}
+                                    previewExperiences={previewExperiences}
                                     {...activitySidebarProps}
                                 />
                             );

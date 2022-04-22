@@ -34,6 +34,7 @@ import type { StringMap, Token, User, BoxItem } from '../../common/types/core';
 import type { AdditionalSidebarTab } from './flowTypes';
 import type { FeatureConfig } from '../common/feature-checking';
 import type APICache from '../../utils/Cache';
+import type { TargetingApi } from '../../features/targeting/types';
 
 import '../common/fonts.scss';
 import '../common/base.scss';
@@ -67,6 +68,9 @@ type Props = {
     onAnnotationSelect?: Function,
     onVersionChange?: Function,
     onVersionHistoryClick?: Function,
+    previewExperiences?: {
+        [name: string]: TargetingApi,
+    },
     requestInterceptor?: Function,
     responseInterceptor?: Function,
     sharedLink?: string,
@@ -336,6 +340,7 @@ class ContentSidebar extends React.Component<Props, State> {
             onAnnotationSelect,
             onVersionChange,
             onVersionHistoryClick,
+            previewExperiences,
             versionsSidebarProps,
         }: Props = this.props;
         const { file, isLoading, metadataEditors }: State = this.state;
@@ -371,6 +376,7 @@ class ContentSidebar extends React.Component<Props, State> {
                             onAnnotationSelect={onAnnotationSelect}
                             onVersionChange={onVersionChange}
                             onVersionHistoryClick={onVersionHistoryClick}
+                            previewExperiences={previewExperiences}
                             versionsSidebarProps={versionsSidebarProps}
                             wrappedComponentRef={ref => {
                                 this.sidebarRef = ref;

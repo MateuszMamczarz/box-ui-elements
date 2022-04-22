@@ -1,0 +1,8 @@
+@import '../../../common/variables';
+
+.bsc-CommentForm-avatar-TooltipImage {
+    width: 408px;
+    height: 50 * $bdl-grid-unit;
+    background-image: url('https://cdn01.boxcdn.net/app-assets/product-adoption/persistent-onboarding/comments-english.gif');
+    background-size: cover;
+}

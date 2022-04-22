@@ -21,6 +21,7 @@ import type { Annotation, AnnotationPermission, FocusableFeedItemType, FeedItems
 import type { SelectorItems, User, GroupMini, BoxItem } from '../../../../common/types/core';
 import type { GetAvatarUrlCallback, GetProfileUrlCallback } from '../../../common/flowTypes';
 import type { Translations, Errors } from '../../flowTypes';
+import type { TargetingApi } from '../../../../features/targeting/types';
 import './ActivityFeed.scss';
 
 type Props = {
@@ -52,6 +53,9 @@ type Props = {
     onTaskUpdate?: Function,
     onTaskView?: Function,
     onVersionHistoryClick?: Function,
+    previewExperiences?: {
+        [name: string]: TargetingApi,
+    },
     translations?: Translations,
 };
 
@@ -222,6 +226,7 @@ class ActivityFeed extends React.Component<Props, State> {
             onTaskUpdate,
             onTaskView,
             onVersionHistoryClick,
+            previewExperiences,
             translations,
         } = this.props;
         const { isInputOpen } = this.state;
@@ -328,6 +333,7 @@ class ActivityFeed extends React.Component<Props, State> {
                         onCancel={this.commentFormCancelHandler}
                         onFocus={this.commentFormFocusHandler}
                         getAvatarUrl={getAvatarUrl}
+                        previewExperiences={previewExperiences}
                     />
                 ) : null}
             </div>

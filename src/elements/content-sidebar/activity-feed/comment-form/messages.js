@@ -69,6 +69,16 @@ const messages = defineMessages({
             'Use the @ symbol to mention users and use the up and down arrow keys to scroll through autocomplete suggestions.',
         description: 'Mentioning call to action detailed description for screen reader users',
     },
+    persistentOnboardingBoxEditCommentsTooltipTitle: {
+        id: 'be.contentSidebar.activityFeed.commentForm.persistentOnboardingBoxEditCommentsTooltipTitle',
+        defaultMessage: 'Communciate with your Team',
+        description: 'Title for tooltip promoting using comments section',
+    },
+    persistentOnboardingBoxEditCommentsTooltipBody: {
+        id: 'be.contentSidebar.activityFeed.commentForm.persistentOnboardingBoxEditCommentsTooltipBody',
+        defaultMessage: 'Use Box’s commenting function to effortlessly communicate and collaborate with your team.',
+        description: 'Body for tooltip promoting using comments section',
+    },
 });
 
 export default messages;

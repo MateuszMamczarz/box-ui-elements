@@ -19,6 +19,8 @@ import Media from '../../../../components/media';
 import messages from './messages';
 import type { GetAvatarUrlCallback } from '../../../common/flowTypes';
 import type { SelectorItems, User } from '../../../../common/types/core';
+import CommentFormGuideTooltip from './CommentFormGuideTooltip';
+import type { TargetingApi } from '../../../../features/targeting/types';
 
 import './CommentForm.scss';
 
@@ -36,6 +38,9 @@ type Props = {
     onCancel: Function,
     onFocus?: Function,
     onSubmit?: Function,
+    previewExperiences?: {
+        [name: string]: TargetingApi,
+    },
     showTip?: boolean,
     tagged_message?: string,
     updateComment?: Function,
@@ -114,6 +119,7 @@ class CommentForm extends React.Component<Props, State> {
             contactsLoaded,
             onCancel,
             onFocus,
+            previewExperiences,
             user,
             isEditing,
             tagged_message,
@@ -124,12 +130,16 @@ class CommentForm extends React.Component<Props, State> {
         const inputContainerClassNames = classNames('bcs-CommentForm', className, {
             'bcs-is-open': isOpen,
         });
+        const commentFormGuideTooltipTargetingApi =
+            previewExperiences && previewExperiences.persistentOnboardingCommentFormTargetingApi;
 
         return (
             <Media className={inputContainerClassNames}>
                 {!isEditing && (
                     <Media.Figure className="bcs-CommentForm-avatar">
-                        <Avatar getAvatarUrl={getAvatarUrl} user={user} />
+                        <CommentFormGuideTooltip targetingApi={commentFormGuideTooltipTargetingApi}>
+                            <Avatar getAvatarUrl={getAvatarUrl} user={user} />
+                        </CommentFormGuideTooltip>
                     </Media.Figure>
                 )}
 

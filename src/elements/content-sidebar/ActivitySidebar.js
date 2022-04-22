@@ -46,6 +46,7 @@ import type { SelectorItems, User, UserMini, GroupMini, BoxItem, BoxItemPermissi
 import type { GetProfileUrlCallback } from '../common/flowTypes';
 import type { Translations, Collaborators, Errors } from './flowTypes';
 import type { FeatureConfig } from '../common/feature-checking';
+import type { TargetingApi } from '../../features/targeting/types';
 import './ActivitySidebar.scss';
 
 type ExternalProps = {
@@ -61,6 +62,9 @@ type ExternalProps = {
     onTaskDelete: (id: string) => any,
     onTaskUpdate: () => any,
     onTaskView: (id: string, isCreator: boolean) => any,
+    previewExperiences?: {
+        [name: string]: TargetingApi,
+    },
 } & ErrorContextProps &
     WithAnnotatorContextProps;
 
@@ -719,6 +723,7 @@ class ActivitySidebar extends React.PureComponent<Props, State> {
             activeFeedEntryId,
             activeFeedEntryType,
             onTaskView,
+            previewExperiences,
         } = this.props;
         const {
             currentUser,
@@ -768,6 +773,7 @@ class ActivitySidebar extends React.PureComponent<Props, State> {
                     onTaskUpdate={this.updateTask}
                     onTaskView={onTaskView}
                     onVersionHistoryClick={onVersionHistoryClick}
+                    previewExperiences={previewExperiences}
                 />
             </SidebarContent>
         );

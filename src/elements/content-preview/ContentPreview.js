@@ -1233,6 +1233,7 @@ class ContentPreview extends React.PureComponent<Props, State> {
             logoUrl,
             onClose,
             measureRef,
+            previewExperiences,
             sharedLink,
             sharedLinkPassword,
             requestInterceptor,
@@ -1315,6 +1316,7 @@ class ContentPreview extends React.PureComponent<Props, State> {
                                 history={history}
                                 isDefaultOpen={isLarge || isVeryLarge}
                                 language={language}
+                                previewExperiences={previewExperiences}
                                 ref={this.contentSidebar}
                                 sharedLink={sharedLink}
                                 sharedLinkPassword={sharedLinkPassword}

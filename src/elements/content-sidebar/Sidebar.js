@@ -26,6 +26,7 @@ import type { VersionsSidebarProps } from './versions';
 import type { AdditionalSidebarTab } from './flowTypes';
 import type { MetadataEditor } from '../../common/types/metadata';
 import type { BoxItem, User } from '../../common/types/core';
+import type { TargetingApi } from '../../features/targeting/types';
 
 type Props = {
     activitySidebarProps: ActivitySidebarProps,
@@ -52,6 +53,9 @@ type Props = {
     onAnnotationSelect?: Function,
     onVersionChange?: Function,
     onVersionHistoryClick?: Function,
+    previewExperiences?: {
+        [name: string]: TargetingApi,
+    },
     versionsSidebarProps: VersionsSidebarProps,
 };
 
@@ -222,6 +226,7 @@ class Sidebar extends React.Component<Props, State> {
             metadataSidebarProps,
             onAnnotationSelect,
             onVersionChange,
+            previewExperiences,
             versionsSidebarProps,
         }: Props = this.props;
         const isOpen = this.isForcedSet() ? this.isForcedOpen() : !!isDefaultOpen;
@@ -273,6 +278,7 @@ class Sidebar extends React.Component<Props, State> {
                             onAnnotationSelect={onAnnotationSelect}
                             onVersionChange={onVersionChange}
                             onVersionHistoryClick={onVersionHistoryClick}
+                            previewExperiences={previewExperiences}
                             ref={this.sidebarPanels}
                             versionsSidebarProps={versionsSidebarProps}
                         />
