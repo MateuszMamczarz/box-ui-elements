@@ -8,6 +8,7 @@ import { useIntl } from 'react-intl';
 
 import { ArrowsExpand } from '@box/blueprint-web-assets/icons/Fill';
 import { IconButton } from '@box/blueprint-web';
+import { BoxAiContentAnswers, withApiWrapper, type ApiWrapperProps } from '@box/box-ai-content-answers'
 import SidebarContent from './SidebarContent';
 import { withAPIContext } from '../common/api-context';
 import { withErrorBoundary } from '../common/error-boundary';
@@ -19,16 +20,26 @@ import { mark } from '../../utils/performance';
 import messages from '../common/messages';
 import sidebarMessages from './messages';
 
+import './BoxAISidebar.scss';
+
 const MARK_NAME_JS_READY: string = `${ORIGIN_BOXAI_SIDEBAR}_${EVENT_JS_READY}`;
 
 mark(MARK_NAME_JS_READY);
 
-export interface BoxAISidebarProps {
-    onExpandClick: () => void;
+
+export interface BoxAISidebarProps extends ApiWrapperProps {
+    onExpandClick: () => void,
 }
 
-function BoxAISidebar({ onExpandClick }: BoxAISidebarProps) {
+function BoxAISidebar({ onExpandClick, ...props }: BoxAISidebarProps) {
     const { formatMessage } = useIntl();
+    const { createSession, encodedSession } = props;
+
+    React.useEffect(() => {
+        if (!encodedSession && createSession) {
+            createSession();
+        }
+    }, []);
 
     return (
         <SidebarContent
@@ -44,7 +55,9 @@ function BoxAISidebar({ onExpandClick }: BoxAISidebarProps) {
             sidebarView={SIDEBAR_VIEW_BOXAI}
             title={formatMessage(messages.sidebarBoxAITitle)}
         >
-            <div className="bcs-BoxAISidebar-content" />
+            <div className="bcs-BoxAISidebar-content">
+                <BoxAiContentAnswers className="bcs-BoxAISidebar-contentAnswers" isSidebarOpen {...props} />
+            </div>
         </SidebarContent>
     );
 }
@@ -52,6 +65,7 @@ function BoxAISidebar({ onExpandClick }: BoxAISidebarProps) {
 export { BoxAISidebar as BoxAISidebarComponent };
 
 const BoxAISidebarDefaultExport: typeof withAPIContext = flow([
+    withApiWrapper,
     withLogger(ORIGIN_BOXAI_SIDEBAR),
     withErrorBoundary(ORIGIN_BOXAI_SIDEBAR),
     withAPIContext,
