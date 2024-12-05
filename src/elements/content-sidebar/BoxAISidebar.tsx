@@ -16,6 +16,7 @@ import { withLogger } from '../common/logger';
 import { ORIGIN_BOXAI_SIDEBAR, SIDEBAR_VIEW_BOXAI } from '../../constants';
 import { EVENT_JS_READY } from '../common/logger/constants';
 import { mark } from '../../utils/performance';
+import type { User } from '../../common/types/core';
 
 import messages from '../common/messages';
 import sidebarMessages from './messages';
@@ -28,12 +29,16 @@ mark(MARK_NAME_JS_READY);
 
 
 export interface BoxAISidebarProps extends ApiWrapperProps {
+    currentUser: User,
     onExpandClick: () => void,
+    fileName: string,
+    contentType: string,
 }
 
-function BoxAISidebar({ onExpandClick, ...props }: BoxAISidebarProps) {
+function BoxAISidebar({ currentUser, onExpandClick, fileName, ...props }: BoxAISidebarProps) {
     const { formatMessage } = useIntl();
-    const { createSession, encodedSession } = props;
+    const { createSession, encodedSession, sendQuestion } = props;
+    const userInfo = { name: currentUser.name, avatarUrl: currentUser.avatar_url };
 
     React.useEffect(() => {
         if (!encodedSession && createSession) {
@@ -56,7 +61,15 @@ function BoxAISidebar({ onExpandClick, ...props }: BoxAISidebarProps) {
             title={formatMessage(messages.sidebarBoxAITitle)}
         >
             <div className="bcs-BoxAISidebar-content">
-                <BoxAiContentAnswers className="bcs-BoxAISidebar-contentAnswers" isSidebarOpen {...props} />
+                <BoxAiContentAnswers 
+                    userInfo={userInfo} 
+                    className="bcs-BoxAISidebar-contentAnswers" 
+                    isSidebarOpen 
+                    contentName={fileName} 
+                    contentType={props.contentType} 
+                    submitQuestion={sendQuestion} 
+                    {...props} 
+                />
             </div>
         </SidebarContent>
     );
