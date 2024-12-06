@@ -5,7 +5,7 @@
 import * as React from 'react';
 import flow from 'lodash/flow';
 import { useIntl } from 'react-intl';
-
+// @ts-expect-error - TS2305 - Module '"@box/box-ai-content-answers"' has no exported member 'ApiWrapperProps'.
 import { BoxAiContentAnswers, withApiWrapper, type ApiWrapperProps } from '@box/box-ai-content-answers'
 import SidebarContent from './SidebarContent';
 import { withAPIContext } from '../common/api-context';
@@ -26,14 +26,22 @@ mark(MARK_NAME_JS_READY);
 
 function BoxAISidebar(props: ApiWrapperProps) {
     const { formatMessage } = useIntl();
-    const { elementId, userInfo, contentName } = React.useContext(BoxAISidebarContext);
-    const { createSession, encodedSession, sendQuestion, ...rest } = props;
+    const { cache, setCacheValue, elementId, userInfo, contentName } = React.useContext(BoxAISidebarContext);
+    const { createSession, encodedSession, sendQuestion, questions, stopQuestion, ...rest } = props;
 
     React.useEffect(() => {
         if (!encodedSession && createSession) {
             createSession();
         }
     }, []);
+
+    if (!cache[encodedSession] && encodedSession) {
+        setCacheValue('encodedSession', encodedSession);
+    }
+
+    if (!cache[questions] && questions) {
+        setCacheValue('questions', questions);
+    }
 
     return (
         <SidebarContent
@@ -48,8 +56,9 @@ function BoxAISidebar(props: ApiWrapperProps) {
                     className="bcs-BoxAISidebar-contentAnswers" 
                     isSidebarOpen 
                     contentName={contentName} 
-                    contentType={props.contentType} 
+                    questions={questions}
                     submitQuestion={sendQuestion} 
+                    stopQuestion={stopQuestion}
                     {...rest} 
                 />
             </div>
