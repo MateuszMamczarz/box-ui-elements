@@ -119,14 +119,14 @@ const BoxAISidebar = (props: BoxAISidebarProps) => {
         prompt: formatMessage(messages[question.promptId]),
     }));
 
-    const isSpreadsheet = SPREADSHEET_FILE_EXTENSIONS.includes(fileExtension);
+    // const isSpreadsheet = SPREADSHEET_FILE_EXTENSIONS.includes(fileExtension);
 
-    let spreadsheetNotice = isSpreadsheet ? formatMessage(messages.welcomeMessageSpreadsheetNotice) : '';
-    if (isIntelligentQueryMode) {
-        spreadsheetNotice = formatMessage(messages.welcomeMessageIntelligentQueryNotice);
-    } else if (isSpreadsheet) {
-        spreadsheetNotice = formatMessage(messages.welcomeMessageSpreadsheetNotice);
-    }
+    // let spreadsheetNotice = isSpreadsheet ? formatMessage(messages.welcomeMessageSpreadsheetNotice) : '';
+    // if (isIntelligentQueryMode) {
+    //     spreadsheetNotice = formatMessage(messages.welcomeMessageIntelligentQueryNotice);
+    // } else if (isSpreadsheet) {
+    //     spreadsheetNotice = formatMessage(messages.welcomeMessageSpreadsheetNotice);
+    // }
 
     return (
         // BoxAISidebarContent is using withApiWrapper that is not passing all provided props,
@@ -145,16 +145,16 @@ const BoxAISidebar = (props: BoxAISidebarProps) => {
             }}
         >
             <BoxAISidebarContent
-                getSuggestedQuestions={getSuggestedQuestions}
-                isOpen
-                isStopResponseEnabled={isStopResponseEnabled}
-                itemID={fileID}
-                itemIDs={[fileID]}
-                restoredQuestions={questionsWithoutInProgress}
-                restoredSession={cache.encodedSession}
-                suggestedQuestions={getSuggestedQuestions === null ? localizedQuestions : []}
-                warningNotice={spreadsheetNotice}
-                warningNoticeAriaLabel={formatMessage(messages.welcomeMessageSpreadsheetNoticeAriaLabel)}
+                // getSuggestedQuestions={getSuggestedQuestions}
+                // isOpen
+                // isStopResponseEnabled={isStopResponseEnabled}
+                // itemID={fileID}
+                // itemIDs={[fileID]}
+                // restoredQuestions={questionsWithoutInProgress}
+                // restoredSession={cache.encodedSession}
+                // suggestedQuestions={getSuggestedQuestions === null ? localizedQuestions : []}
+                // warningNotice={spreadsheetNotice}
+                // warningNoticeAriaLabel={formatMessage(messages.welcomeMessageSpreadsheetNoticeAriaLabel)}
                 {...rest}
             />
         </BoxAISidebarContext.Provider>

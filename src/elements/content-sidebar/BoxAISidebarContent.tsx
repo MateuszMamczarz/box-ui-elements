@@ -62,15 +62,15 @@ function BoxAISidebarContent(props: ApiWrapperProps) {
         setCacheValue,
         userInfo,
     } = React.useContext(BoxAISidebarContext);
-    const { questions: cacheQuestions } = cache;
+    // const { questions: cacheQuestions } = cache;
 
-    if (cache.encodedSession !== encodedSession) {
-        setCacheValue('encodedSession', encodedSession);
-    }
+    // if (cache.encodedSession !== encodedSession) {
+    //     setCacheValue('encodedSession', encodedSession);
+    // }
 
-    if (cache.questions !== questions) {
-        setCacheValue('questions', questions);
-    }
+    // if (cache.questions !== questions) {
+    //     setCacheValue('questions', questions);
+    // }
 
     const onModalClose = () => {
         setIsModalOpen(false);
@@ -80,22 +80,22 @@ function BoxAISidebarContent(props: ApiWrapperProps) {
         setIsModalOpen(true);
     };
 
-    React.useEffect(() => {
-        if (!encodedSession && createSession) {
-            createSession();
-        }
+    // React.useEffect(() => {
+    //     if (!encodedSession && createSession) {
+    //         createSession();
+    //     }
 
-        if (cacheQuestions.length > 0 && cacheQuestions[cacheQuestions.length - 1].isCompleted === false) {
-            // if we have cache with question that is not completed resend it to trigger an API
-            sendQuestion({ prompt: cacheQuestions[cacheQuestions.length - 1].prompt });
-        }
+    //     if (cacheQuestions.length > 0 && cacheQuestions[cacheQuestions.length - 1].isCompleted === false) {
+    //         // if we have cache with question that is not completed resend it to trigger an API
+    //         sendQuestion({ prompt: cacheQuestions[cacheQuestions.length - 1].prompt });
+    //     }
 
-        return () => {
-            // stop API request on unmount (e.g. during switching to another tab)
-            stopQuestion();
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    //     return () => {
+    //         // stop API request on unmount (e.g. during switching to another tab)
+    //         stopQuestion();
+    //     };
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
 
     const renderBoxAISidebarTitle = () => {
         return (
@@ -146,7 +146,8 @@ function BoxAISidebarContent(props: ApiWrapperProps) {
                     sidebarView={SIDEBAR_VIEW_BOXAI}
                 >
                     <div className="bcs-BoxAISidebar-content">
-                        <BoxAiContentAnswers
+                        {props.renderBoxAI('sidebar', true)}
+                        {/* <BoxAiContentAnswers
                             className="bcs-BoxAISidebar-contentAnswers"
                             contentName={contentName}
                             contentType={formatMessage(messages.sidebarBoxAIContent)}
@@ -160,10 +161,10 @@ function BoxAISidebarContent(props: ApiWrapperProps) {
                             variant="sidebar"
                             recordAction={recordAction}
                             {...rest}
-                        />
+                        /> */}
                     </div>
                 </SidebarContent>
-                <IntelligenceModal
+                {/* <IntelligenceModal
                     contentName={contentName}
                     contentType={formatMessage(messages.sidebarBoxAIContent)}
                     extension={fileExtension}
@@ -185,7 +186,8 @@ function BoxAISidebarContent(props: ApiWrapperProps) {
                     variant="collapsible"
                     {...rest}
                     shouldRenderProviders={false}
-                />
+                /> */}
+                {props.renderBoxAI('modal', isModalOpen)}
             </>
         </AgentsProvider>
     );
@@ -197,7 +199,7 @@ const BoxAISidebarContentDefaultExport: typeof withAPIContext = flow([
     withLogger(ORIGIN_BOXAI_SIDEBAR),
     withErrorBoundary(ORIGIN_BOXAI_SIDEBAR),
     withAPIContext,
-    withApiWrapper, // returns only props for Box AI, keep it at the end
+    // withApiWrapper, // returns only props for Box AI, keep it at the end
 ])(BoxAISidebarContent);
 
 export default BoxAISidebarContentDefaultExport;
