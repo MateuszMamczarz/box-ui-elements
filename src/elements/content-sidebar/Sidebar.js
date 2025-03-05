@@ -69,6 +69,7 @@ type Props = {
     onPanelChange?: (name: string, isInitialState: boolean) => void,
     onVersionChange?: Function,
     onVersionHistoryClick?: Function,
+    renderBoxAISidebar?: Function,
     theme?: Theme,
     versionsSidebarProps: VersionsSidebarProps,
 };
@@ -309,6 +310,7 @@ class Sidebar extends React.Component<Props, State> {
             metadataSidebarProps,
             onAnnotationSelect,
             onVersionChange,
+            renderBoxAISidebar,
             theme,
             versionsSidebarProps,
         }: Props = this.props;
@@ -378,6 +380,7 @@ class Sidebar extends React.Component<Props, State> {
                             onVersionChange={onVersionChange}
                             onVersionHistoryClick={onVersionHistoryClick}
                             ref={this.sidebarPanels}
+                            renderBoxAISidebar={renderBoxAISidebar}
                             versionsSidebarProps={versionsSidebarProps}
                         />
                     </>

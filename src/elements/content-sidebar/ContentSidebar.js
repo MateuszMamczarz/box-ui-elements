@@ -82,6 +82,7 @@ type Props = {
     onPanelChange?: (name: string, isInitialState: boolean) => void,
     onVersionChange?: Function,
     onVersionHistoryClick?: Function,
+    renderBoxAISidebar?: Function,
     requestInterceptor?: Function,
     responseInterceptor?: Function,
     sharedLink?: string,
@@ -366,6 +367,7 @@ class ContentSidebar extends React.Component<Props, State> {
             onPanelChange,
             onVersionChange,
             onVersionHistoryClick,
+            renderBoxAISidebar,
             theme,
             versionsSidebarProps,
         }: Props = this.props;
@@ -408,6 +410,7 @@ class ContentSidebar extends React.Component<Props, State> {
                                 onPanelChange={onPanelChange}
                                 onVersionChange={onVersionChange}
                                 onVersionHistoryClick={onVersionHistoryClick}
+                                renderBoxAISidebar={renderBoxAISidebar}
                                 theme={theme}
                                 versionsSidebarProps={versionsSidebarProps}
                                 wrappedComponentRef={ref => {
