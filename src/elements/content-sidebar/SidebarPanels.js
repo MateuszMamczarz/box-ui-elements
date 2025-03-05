@@ -71,6 +71,7 @@ type Props = {
     onPanelChange?: (name: string, isInitialState?: boolean) => void,
     onVersionChange?: Function,
     onVersionHistoryClick?: Function,
+    renderBoxAISidebar?: Function,
     versionsSidebarProps: VersionsSidebarProps,
 };
 
@@ -234,6 +235,7 @@ class SidebarPanels extends React.Component<Props, State> {
             onAnnotationSelect,
             onVersionChange,
             onVersionHistoryClick,
+            renderBoxAISidebar,
             versionsSidebarProps,
         }: Props = this.props;
 
@@ -280,6 +282,7 @@ class SidebarPanels extends React.Component<Props, State> {
                                     startMarkName={MARK_NAME_JS_LOADING_BOXAI}
                                     userInfo={{ name: currentUser?.name, avatarURL: currentUser?.avatar_url }}
                                     cache={this.boxAiSidebarCache}
+                                    renderBoxAISidebar={renderBoxAISidebar}
                                     setCacheValue={this.setBoxAiSidebarCacheValue}
                                     {...boxAISidebarProps}
                                 />
